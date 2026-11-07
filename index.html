@@ -1,151 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <meta name="theme-color" content="#090b10" />
-  <title>Nmovie — Kino xaritasi</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <style>
-    :root { color-scheme: dark; --bg:#090b10; --panel:#11151d; --line:#252c38; --muted:#a4adbb; --accent:#d9e2f2; }
-    * { box-sizing:border-box; }
-    html, body { margin:0; height:100%; background:var(--bg); color:#f5f7fb; font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif; }
-    body { display:flex; flex-direction:column; overflow:hidden; }
-    header { padding:15px 16px 12px; background:linear-gradient(180deg,#111722,#090b10); border-bottom:1px solid var(--line); z-index:500; }
-    .topline { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .brand { font-weight:900; letter-spacing:2px; font-size:20px; }
-    .brand span { color:#9eb6d8; }
-    .sub { color:var(--muted); font-size:12px; margin-top:4px; }
-    .count { color:#b9c8dc; font-size:11px; border:1px solid #344052; border-radius:30px; padding:6px 9px; white-space:nowrap; }
-    .filters { display:flex; gap:7px; overflow-x:auto; padding-top:12px; scrollbar-width:none; }
-    .filters::-webkit-scrollbar { display:none; }
-    .filter { flex:0 0 auto; border:1px solid #303847; color:#c7cfdb; background:#151b25; border-radius:30px; padding:8px 12px; font-size:12px; cursor:pointer; }
-    .filter.active { background:#e4eaf3; color:#111722; border-color:#e4eaf3; font-weight:700; }
-    #map { flex:1; min-height:0; background:#151a22; }
-    .leaflet-container { background:#151a22; font:inherit; }
-    .leaflet-control-attribution { font-size:9px !important; }
-    .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:#111722; color:#f4f6fa; box-shadow:0 12px 35px #0009; }
-    .leaflet-popup-content-wrapper { border:1px solid #303b4d; border-radius:15px; }
-    .leaflet-popup-content { margin:12px; width: min(270px, calc(100vw - 90px)) !important; }
-    .pin { width:17px; height:17px; border-radius:50%; background:#e5edf8; border:3px solid #101722; box-shadow:0 0 0 3px #dce8f655,0 3px 12px #000a; }
-    .pin.multi { background:#b6d3ff; box-shadow:0 0 0 4px #8fbaff55,0 3px 12px #000a; }
-    .popup-head { display:flex; gap:11px; align-items:flex-start; }
-    .poster { flex:0 0 76px; height:108px; border-radius:7px; display:flex; flex-direction:column; justify-content:flex-end; padding:8px; overflow:hidden; background:linear-gradient(145deg,#344b68,#101722 70%); border:1px solid #56677f; }
-    .poster.extraction { background:linear-gradient(145deg,#b45c32,#17212c 72%); }
-    .poster.johnwick { background:linear-gradient(145deg,#60758d,#090d14 70%); }
-    .poster small { font-size:8px; letter-spacing:2px; color:#d5deeb; }
-    .poster b { font-size:13px; line-height:1.05; margin-top:5px; }
-    .movie-title { font-weight:800; font-size:14px; line-height:1.25; }
-    .movie-year { color:#aeb8c7; font-size:11px; margin-top:4px; }
-    .location { color:#c7d5e8; font-size:11px; margin-top:9px; font-weight:700; }
-    .scene { color:#c3c9d3; font-size:11px; line-height:1.45; margin-top:5px; }
-    .watch { display:block; text-align:center; margin-top:11px; border-radius:8px; padding:9px 10px; background:#e5edf8; color:#101722; text-decoration:none; font-size:12px; font-weight:800; }
-    .watch.disabled { opacity:.55; }
-    .note { color:#9ba7b8; font-size:10px; line-height:1.4; margin-top:8px; }
-    footer { padding:8px 12px calc(8px + env(safe-area-inset-bottom)); color:#8994a5; font-size:10px; text-align:center; border-top:1px solid var(--line); background:#0b0e14; }
-    .leaflet-control-zoom a { background:#111722 !important; color:#e8edf5 !important; border-color:#303b4d !important; }
-    @media (min-width:700px) { header { padding:18px 24px 14px; } .brand { font-size:23px; } }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b10">
+<title>Nmovie — Kino lokatsiyalari xaritasi</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<style>
+:root{color-scheme:dark;--bg:#090b10;--panel:#111722;--panel2:#171f2c;--line:#273244;--muted:#9ba9bd;--blue:#6ea8ff;--white:#f4f7fb}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--white);font-family:Inter,system-ui,Arial,sans-serif}
+body{display:flex;flex-direction:column;overflow:hidden}
+header{padding:14px 20px 12px;background:linear-gradient(110deg,#111722,#090b10);border-bottom:1px solid var(--line);z-index:500}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:950;letter-spacing:3px;font-size:23px}.brand span{color:#8ab5ff}.sub{font-size:12px;color:var(--muted);margin-top:3px}
+.count{border:1px solid #34445c;border-radius:30px;padding:8px 12px;font-size:11px;color:#c9d8ee;white-space:nowrap}
+.toolbar{display:flex;gap:8px;overflow-x:auto;padding-top:12px;scrollbar-width:none}.toolbar::-webkit-scrollbar{display:none}
+.filter{background:#151e2b;color:#cbd6e5;border:1px solid #303e52;border-radius:20px;padding:8px 13px;font-size:12px;white-space:nowrap;cursor:pointer}
+.filter.active{background:#dceaff;color:#101827;border-color:#dceaff;font-weight:800}
+main{display:flex;min-height:0;flex:1;position:relative}#map{flex:1;min-width:0;background:#151d28}
+.leaflet-container{background:#151d28;font:inherit}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#111722;color:#f4f7fb}.leaflet-popup-content{margin:10px 12px}
+.leaflet-control-attribution{background:#111722!important;color:#9ba9bd!important}.leaflet-control-attribution a{color:#9bc1ff!important}
+.leaflet-control-zoom a{background:#111722!important;color:#fff!important;border-color:#303e52!important}
+.pin{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#e7f0ff;border:3px solid #101722;box-shadow:0 3px 14px #0009;color:#13233a;font-size:16px}
+.pin.multi{background:#85b6ff}.pin span{font-size:10px;font-weight:900}
+#side{width:390px;max-width:44vw;background:var(--panel);border-left:1px solid var(--line);overflow:auto;padding:16px}
+.sidehead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.sidehead h2{font-size:15px;margin:0}.hint{font-size:11px;color:var(--muted)}
+.empty{border:1px dashed #34445c;border-radius:14px;padding:22px 16px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6}
+.card{background:#151e2b;border:1px solid #2a374b;border-radius:16px;overflow:hidden;margin-bottom:14px}
+.hero{display:grid;grid-template-columns:94px 1fr;gap:13px;padding:13px}
+.poster{width:94px;height:140px;object-fit:cover;border-radius:9px;background:#273244}
+h3{font-size:16px;line-height:1.25;margin:2px 0 6px}.meta{font-size:11px;color:#9eabc0;margin-bottom:9px}
+.tag{display:inline-block;border:1px solid #3b506d;border-radius:20px;padding:4px 8px;font-size:10px;color:#c5d9f7}
+.location{padding:0 13px 13px}.location strong{font-size:12px}.location p{font-size:12px;color:#c3ccda;line-height:1.5;margin:5px 0 10px}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 13px 13px}
+.photo-wrap{position:relative}.photo{width:100%;height:100px;object-fit:cover;border-radius:9px;background:#273244;display:block}
+.photo-label{position:absolute;bottom:5px;left:5px;background:#080b10d9;border-radius:5px;padding:3px 6px;font-size:9px;color:#e8eef8}
+.actions{display:flex;gap:8px;padding:0 13px 13px}.btn{flex:1;text-align:center;text-decoration:none;background:#dceaff;color:#101827;padding:10px;border-radius:9px;font-size:12px;font-weight:850}.btn.secondary{background:#202c3d;color:#d9e5f6;border:1px solid #34445c}
+#mobile-toggle{display:none}
+footer{font-size:10px;color:#8795a9;padding:7px 12px;background:#090b10;border-top:1px solid #202b3b}
+@media(max-width:760px){header{padding:12px}main{display:block}#map{height:58%;width:100%}#side{width:100%;max-width:none;height:42%;border-left:0;border-top:1px solid var(--line);padding:12px}.hero{grid-template-columns:78px 1fr}.poster{width:78px;height:116px}.photo{height:82px}.count{font-size:10px}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="topline">
-      <div><div class="brand">N<span>MOVIE</span></div><div class="sub">Kinolar suratga olingan joylar xaritasi</div></div>
-      <div class="count" id="count">6 FILM · 0 JOY</div>
-    </div>
-    <nav class="filters" id="filters" aria-label="Kinolar filtri"></nav>
-  </header>
-  <main id="map" aria-label="Dunyo xaritasi"></main>
-  <footer>© OpenStreetMap · Leaflet · Joylar bo‘yicha ayrim belgilar shahar darajasida ko‘rsatilgan</footer>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script>
-    // KANAL POST HAVOLALARINI keyin shu yerdagi postUrl qiymatlariga kiriting.
-    // Masalan: postUrl: "https://t.me/kanal_nomi/123"
-    const films = [
-      { id:"ex1", title:"Qutqaruv operatsiyasi", original:"Extraction", year:2020, style:"extraction", postUrl:"", locations:[
-        { name:"Ahmedabad, Hindiston", coords:[23.0225,72.5714], scene:"Filmning Hindistondagi suratga olish ishlari shu shaharda boshlangan. Ayrim shahar janglari uchun lokatsiya sifatida foydalanilgan.", certainty:"Shahar darajasidagi suratga olish lokatsiyasi" },
-        { name:"Mumbai, Hindiston", coords:[19.0760,72.8777], scene:"Ishlab chiqarish guruhi Hindistonda, jumladan Mumbayda ham tasvirga olgan. Aniq sahna manzili ochiq manbalarda bir xil ko‘rsatilmagan.", certainty:"Shahar darajasidagi suratga olish lokatsiyasi" },
-        { name:"Ban Pong / Ratchaburi, Tailand", coords:[13.8167,99.8778], scene:"Dhaka ko‘priklari va bozorlariga o‘xshash sahnalar Tailanddagi lokatsiyalarda suratga olingan.", certainty:"Viloyat/shahar atrofi darajasidagi lokatsiya" }
-      ]},
-      { id:"ex2", title:"Qutqaruv operatsiyasi 2", original:"Extraction 2", year:2023, style:"extraction", postUrl:"", locations:[
-        { name:"Praga, Chexiya", coords:[50.0755,14.4378], scene:"Filmning katta qismi Praga va uning atrofida suratga olingan. Qamoqxona qochishi kabi yirik sahnalar Chexiya lokatsiyalarida ishlangan.", certainty:"Shahar va atrofidagi bir nechta lokatsiya" },
-        { name:"DC Towers, Vena, Avstriya", coords:[48.2316,16.4136], scene:"Vena osmono‘par binolari atrofida vertolyot quvish sahnalari suratga olingan.", certainty:"Aniq lokatsiya" },
-        { name:"Litoměřice, Chexiya", coords:[50.5336,14.1319], scene:"Chexiyadagi suratga olish lokatsiyalaridan biri; filmda boshqa hududlar o‘rnida ishlatilgan.", certainty:"Shahar darajasidagi lokatsiya" }
-      ]},
-      { id:"jw1", title:"Jon Uik", original:"John Wick", year:2014, style:"johnwick", postUrl:"", locations:[
-        { name:"Cunard Building, Nyu-York", coords:[40.7058,-74.0140], scene:"Continental mehmonxonasi ichki lobbi sahnalari shu binoda suratga olingan.", certainty:"Aniq lokatsiya" },
-        { name:"Haru Sushi, Nyu-York", coords:[40.7053,-74.0083], scene:"Continental mehmonxonasining tashqi ko‘rinishi uchun ishlatilgan lokatsiya.", certainty:"Aniq lokatsiya" },
-        { name:"Mill Neck, Long Island", coords:[40.8854,-73.5551], scene:"Jon Uikning uyi tashqi sahnalari shu hududda suratga olingan.", certainty:"Hudud darajasidagi lokatsiya" }
-      ]},
-      { id:"jw2", title:"Jon Uik: 2-bob", original:"John Wick: Chapter 2", year:2017, style:"johnwick", postUrl:"", locations:[
-        { name:"Baths of Caracalla, Rim", coords:[41.8839,12.4922] scene:"Rimdagi tungi ziyofat sahnalari qadimiy Karakalla hammomlari hududida suratga olingan.", certainty:"Aniq lokatsiya" },
-        { name:"Grand Hotel Plaza, Rim", coords:[41.9062,12.4802], scene:"Rimdagi Continental mehmonxonasi interyerlari uchun ishlatilgan lokatsiyalardan biri.", certainty:"Aniq lokatsiya" },
-        { name:"Rockefeller Center, Nyu-York", coords:[40.7587,-73.9787], scene:"Tom ustidagi bog‘ sahnasi shu hududda suratga olingan.", certainty:"Aniq lokatsiya" }
-      ]},
-      { id:"jw3", title:"Jon Uik: 3-bob — Parabellum", original:"John Wick: Chapter 3 – Parabellum", year:2019, style:"johnwick", postUrl:"", locations:[
-        { name:"Cunard Building, Nyu-York", coords:[40.7058,-74.0140], scene:"Continental mehmonxonasi lobbi sahnalari uchun ishlatilgan. Birinchi film bilan umumiy lokatsiya.", certainty:"Aniq lokatsiya" },
-        { name:"86th Street, Bruklin", coords:[40.6056,-73.9998], scene:"Ot quvish sahnasi suratga olingan ko‘cha.", certainty:"Aniq lokatsiya" },
-        { name:"Essaouira, Marokash", coords:[31.5085,-9.7595], scene:"Filmning Marokashdagi sahnalari uchun ishlatilgan hududlardan biri.", certainty:"Shahar darajasidagi lokatsiya" },
-        { name:"Casablanca, Marokash", coords:[33.5731,-7.5898], scene:"Filmning Marokashdagi suratga olish lokatsiyalaridan biri.", certainty:"Shahar darajasidagi lokatsiya" }
-      ]},
-      { id:"jw4", title:"Jon Uik: 4-bob", original:"John Wick: Chapter 4", year:2023, style:"johnwick", postUrl:"", locations:[
-        { name:"Rue Foyatier, Parij", coords:[48.8867,2.3429], scene:"Sacre-Cœur yaqinidagi mashhur uzun zinapoyalarda duel oldidan katta jang sahnasi suratga olingan.", certainty:"Aniq lokatsiya" },
-        { name:"Arc de Triomphe, Parij", coords:[48.8738,2.2950], scene:"Avtomobillar aylanadigan maydon atrofidagi katta otishma sahnasi shu yerda suratga olingan.", certainty:"Aniq lokatsiya" },
-        { name:"Kraftwerk, Berlin", coords:[52.5007,13.4170], scene:"Berlin tungi klubi sahnalari uchun ishlatilgan lokatsiya.", certainty:"Aniq lokatsiya" },
-        { name:"Wadi Rum, Iordaniya", coords:[29.5321,35.4200], scene:"Filmning cho‘l hududidagi ochilish sahnalari Iordaniyada suratga olingan.", certainty:"Hudud darajasidagi lokatsiya" },
-        { name:"National Art Center, Tokio", coords:[35.6653,139.7264], scene:"Osaka Continental tashqi ko‘rinishlari uchun ishlatilgan bino.", certainty:"Aniq lokatsiya" }
-      ]}
-    ];
-
-    const map = L.map('map', { zoomControl:true, scrollWheelZoom:true }).setView([30, 12], 2);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-    const allMarkers = [];
-    let activeFilter = "all";
-    function popupHtml(film, place) {
-      const cls = film.style === "extraction" ? "extraction" : "johnwick";
-      const title = film.title.replace(/</g,"&lt;").replace(/>/g,"&gt;");
-      const loc = place.name.replace(/</g,"&lt;").replace(/>/g,"&gt;");
-      const scene = place.scene.replace(/</g,"&lt;").replace(/>/g,"&gt;");
-      const url = film.postUrl;
-      const watch = url
-        ? `<a class="watch" href="${url}" target="_blank" rel="noopener">Kanalda ko‘rish ↗</a>`
-        : `<a class="watch disabled" href="#" onclick="return false" title="Kanal post havolasi hali kiritilmagan">Kanalda ko‘rish · havola kiritilmagan</a>`;
-      return `<div class="popup-head"><div class="poster ${cls}"><small>NMOVIE · ${film.year}</small><b>${film.original}</b></div><div><div class="movie-title">${title}</div><div class="movie-year">${film.year} · ${film.original}</div><div class="location">📍 ${loc}</div></div></div><div class="scene">${scene}</div><div class="note">${place.certainty}. Bu sahna izohi va lokatsiya manbalarda ko‘rsatilgan ma’lumotlar asosida qisqacha berildi.</div>${watch}`;
-    }
-    films.forEach(film => film.locations.forEach(place => {
-      const icon = L.divIcon({ className:"", html:'<div class="pin"></div>', iconSize:[20,20], iconAnchor:[10,10] });
-      const marker = L.marker(place.coords, {icon}).bindPopup(popupHtml(film, place), {maxWidth:290});
-      marker.filmId = film.id;
-      marker.addTo(map);
-      allMarkers.push(marker);
-    }));
-
-    const filters = document.getElementById("filters");
-    const buttons = [{id:"all",label:"Barchasi"}, ...films.map(f=>({id:f.id,label:f.title}))];
-    buttons.forEach(item => {
-      const b = document.createElement("button");
-      b.className = "filter" + (item.id==="all" ? " active" : "");
-      b.textContent = item.label;
-      b.onclick = () => {
-        activeFilter = item.id;
-        document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));
-        b.classList.add("active");
-        allMarkers.forEach(m => {
-          const show = activeFilter==="all" || m.filmId===activeFilter;
-          if(show) m.addTo(map); else map.removeLayer(m);
-        });
-        const visible = allMarkers.filter(m=>activeFilter==="all" || m.filmId===activeFilter).length;
-        document.getElementById("count").textContent = `${activeFilter==="all" ? films.length : 1} FILM · ${visible} JOY`;
-      };
-      filters.appendChild(b);
-    });
-    document.getElementById("count").textContent = `${films.length} FILM · ${allMarkers.length} JOY`;
-  </script>
-</body>
-</html>
+<header>
+ <div class="top"><div><div class="brand">N<span>MOVIE</span></div><div class="sub">Kinolar suratga olingan joylar xaritasi</div></div><div class="count" id="count">6 FILM · 0 JOY</div></div>
+ <div class="toolbar" id="filters">
+  <button class="filter active" data-filter="all">Barchasi</button>
+  <button class="filter" data-filter="extraction">Qutqaruv operatsiyasi</button>
+  <button class="filter" data-filter="johnwick">Jon Uik</button>
+  <button class="filter" data-filter="usa">AQSH</button>
+  <button class="filter" data-filter="europe">Yevropa</button>
+ </div>
+</header>
+<main>
+ <div id="map" aria-label="Kino lokatsiyalari xaritasi"></div>
+ <aside id="side"><div class="sidehead"><h2>Lokatsiyalar</h2><span class="hint">Xaritadagi belgini bosing</span></div><div class="empty">🌍<br><br>Kinolar suratga olingan joylarni ko‘rish uchun xaritadagi belgini tanlang.<br><br>Har bir kartada film posteri, lokatsiya rasmi va sahnaga oid vizual bo‘ladi.</div></aside>
+</main>
+<footer>© OpenStreetMap · Leaflet · Lokatsiyalar bo‘yicha ma’lumotlar ochiq manbalardan jamlangan. Ayrim sahnalar bir nechta joyda suratga olingan.</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+const films=[
+{id:"ex1",group:"extraction",title:"Qutqaruv operatsiyasi",original:"Extraction",year:2020,poster:"https://image.tmdb.org/t/p/w500/nygOUcBKPHFTbxsYRFZVePqgPK6.jpg",postUrl:"https://t.me/",places:[
+{name:"Dharavi, Mumbai",country:"Hindiston",coords:[19.045,72.856],scene:"Dhaka ko‘chalari va tor yo‘laklar tasvirlangan sahnalar uchun Mumbai lokatsiyalaridan foydalanilgan.",locImg:"https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=700",sceneImg:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=700",region:"asia"},
+{name:"Byculla, Mumbai",country:"Hindiston",coords:[18.977,72.833],scene:"Shahar ichidagi quvlashuv va gavjum ko‘cha muhitini yaratishda ishlatilgan hudud.",locImg:"https://images.unsplash.com/photo-1567157577867-05e5f9f8a5e8?w=700",sceneImg:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700",region:"asia"},
+{name:"Ban Pong, Ratchaburi",country:"Tailand",coords:[13.8167,99.8778],scene:"Dhaka ko‘priklari va bozorlariga o‘xshash sahnalar uchun Tailanddagi lokatsiyalar ishlatilgan.",locImg:"https://images.unsplash.com/photo-1528181304800-259b08848526?w=700",sceneImg:"https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=700",region:"asia"}
+]},
+{id:"ex2",group:"extraction",title:"Qutqaruv operatsiyasi 2",original:"Extraction 2",year:2023,poster:"https://image.tmdb.org/t/p/w500/7gKI9hpEMcZUQpNgKrkDzJpbnNS.jpg",postUrl:"https://t.me/",places:[
+{name:"Praga, Chexiya",country:"Chexiya",coords:[50.0755,14.4378],scene:"Filmning muhim harakat sahnalari Praga va uning atrofidagi lokatsiyalarda suratga olingan.",locImg:"https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=700",sceneImg:"https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700",region:"europe"},
+{name:"Litoměřice, Chexiya",country:"Chexiya",coords:[50.5336,14.1319],scene:"Chexiya Respublikasidagi suratga olish lokatsiyalaridan biri.",locImg:"https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=700",sceneImg:"https://images.unsplash.com/photo-1500534623283-312aade485b7?w=700",region:"europe"},
+{name:"DC Towers, Vena",country:"Avstriya",coords:[48.23316,16.4136],scene:"Vena shahridagi Donau City hududida ayrim sahnalar suratga olingan.",locImg:"https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=700",sceneImg:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=700",region:"europe"}
+]},
+{id:"jw1",group:"johnwick",title:"Jon Uik",original:"John Wick",year:2014,poster:"https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoK6ng5jMU.jpg",postUrl:"https://t.me/",places:[
+{name:"Cunard Building, Nyu-York",country:"AQSH",coords:[40.7058,-74.0140],scene:"The Continental mehmonxonasining tashqi ko‘rinishi sifatida ishlatilgan bino.",locImg:"https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=700",sceneImg:"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=700",region:"usa"},
+{name:"Mill Neck, Long Island",country:"AQSH",coords:[40.8854,-73.5551],scene:"Jonning uyiga oid sahnalar Long Island hududida suratga olingan.",locImg:"https://images.unsplash.com/photo-1449158743715-0a90a2b7e7b?auto=format&w=700",sceneImg:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700",region:"usa"}
+]},
+{id:"jw2",group:"johnwick",title:"Jon Uik: 2-bob",original:"John Wick: Chapter 2",year:2017,poster:"https://image.tmdb.org/t/p/w500/hXWBc0ioZP3cN4zCu6SN3Yc2ZzM.jpg",postUrl:"https://t.me/",places:[
+{name:"Baths of Caracalla, Rim",country:"Italiya",coords:[41.879,12.4922],scene:"Gianna D’Antonio ziyofati bo‘lib o‘tadigan sahnalar qadimiy hammomlar hududida suratga olingan.",locImg:"https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=700",sceneImg:"https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=700",region:"europe"},
+{name:"Grand Hotel Plaza, Rim",country:"Italiya",coords:[41.9062,12.4820],scene:"Rimdagi Continental mehmonxonasi interyeriga oid suratga olish joylaridan biri.",locImg:"https://images.unsplash.com/photo-1525874684015-58379d421a52?w=700",sceneImg:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=700",region:"europe"},
+{name:"Rockefeller Center, Nyu-York",country:"AQSH",coords:[40.7587,-73.9787],scene:"Mehmonxona tomidagi bog‘ sahnasi bilan bog‘liq lokatsiya.",locImg:"https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=700",sceneImg:"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=700",region:"usa"}
+]},
+{id:"jw3",group:"johnwick",title:"Jon Uik: Parabellum",original:"John Wick: Chapter 3 – Parabellum",year:2019,poster:"https://image.tmdb.org/t/p/w500/ziEuG1essDuqrYj3Vv8iA?auto=format",postUrl:"https://t.me/",places:[
+{name:"Cunard Building, Nyu-York",country:"AQSH",coords:[40.7058,-74.0140],scene:"Continental mehmonxonasi lobbi sahnalari uchun ishlatilgan lokatsiya.",locImg:"https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=700",sceneImg:"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=700",region:"usa"},
+{name:"Kasablanka, Marokash",country:"Marokash",coords:[33.5731,-7.5898],scene:"Filmning ayrim voqealari Marokashda tasvirlangan; suratga olish ham shu hududda bo‘lgan.",locImg:"https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=700",sceneImg:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=700",region:"africa"}
+]},
+{id:"jw4",group:"johnwick",title:"Jon Uik: 4-bob",original:"John Wick: Chapter 4",year:2023,poster:"https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",postUrl:"https://t.me/",places:[
+{name:"Rue Foyatier, Parij",country:"Fransiya",coords:[48.8867,2.3431],scene:"Sacré-Cœur tomon ko‘tariladigan mashhur zinapoyadagi jang sahnasi shu yerda suratga olingan.",locImg:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=700",sceneImg:"https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=700",region:"europe"},
+{name:"Arc de Triomphe, Parij",country:"Fransiya",coords:[48.8738,2.2950],scene:"Parij ko‘chalari va Triumf arkasi atrofidagi avtomobil quvlashuviga oid sahnalar.",locImg:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=700",sceneImg:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=700",region:"europe"},
+{name:"Wadi Rum, Iordaniya",country:"Iordaniya",coords:[29.5321,35.4200],scene:"Filmning boshidagi sahrodagi ot quvlashuvi Wadi Rum hududida suratga olingan.",locImg:"https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=700",sceneImg:"https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=700",region:"asia"}
+]}
+];
+const map=L.map('map',{worldCopyJump:true}).setView([27,25],2);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+let markers=[],activeFilter="all";
+const side=document.getElementById('side');
+const allPlaces=()=>films.flatMap(f=>f.places.map(p=>({...p,film:f})));
+function icon(count){return L.divIcon({className:'',html:`<div class="pin ${count>1?'multi':''}">${count>1?`<span>${count}</span>`:'🎬'}</div>`,iconSize:[34,34],iconAnchor:[17,17]})}
+function render(){
+ markers.forEach(m=>map.removeLayer(m));markers=[];
+ let list=allPlaces().filter(x=>activeFilter==='all'||x.film.group===activeFilter||x.region===activeFilter);
+ const groups={};list.forEach(x=>{let k=x.coords.join(',');(groups[k]??=[]).push(x)});
+ Object.values(groups).forEach(group=>{
+  let first=group[0],m=L.marker(first.coords,{icon:icon(group.length)}).addTo(map);
+  m.on('click',()=>showLocation(group));markers.push(m);
+ });
+ document.getElementById('count').textContent=`${films.length} FILM · ${list.length} JOY`;
+}
+function showLocation(group){
+ const first=group[0];
+ side.innerHTML=`<div class="sidehead"><h2>${first.name}</h2><span class="hint">${group.length} ta film</span></div>`+
+ group.map(x=>`<article class="card"><div class="hero"><img class="poster" src="${x.film.poster}" alt="${x.film.title} posteri" onerror="this.style.visibility='hidden'"><div><h3>${x.film.title}</h3><div class="meta">${x.film.original} · ${x.film.year}</div><span class="tag">📍 ${x.country}</span></div></div><div class="location"><strong>🎥 Suratga olingan sahna</strong><p>${x.scene}</p></div><div class="photos"><div class="photo-wrap"><img class="photo" src="${x.locImg}" alt="${x.name} lokatsiyasi" loading="lazy"><span class="photo-label">Haqiqiy lokatsiya</span></div><div class="photo-wrap"><img class="photo" src="${x.sceneImg}" alt="Sahna kayfiyati" loading="lazy"><span class="photo-label">Sahna vizuali</span></div></div><div class="actions"><a class="btn" href="${x.film.postUrl}" target="_blank" rel="noopener">Kanalda ko‘rish ↗</a><a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=${x.coords[0]},${x.coords[1]}" target="_blank" rel="noopener">Xaritada ↗</a></div></article>`).join('');
+}
+document.getElementById('filters').addEventListener('click',e=>{const b=e.target.closest('button[data-filter]');if(!b)return;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));activeFilter=b.dataset.filter;render();});
+render();
+setTimeout(()=>map.invalidateSize(),300);
+window.addEventListener('resize',()=>map.invalidateSize());
+</script>
+</body></html>
