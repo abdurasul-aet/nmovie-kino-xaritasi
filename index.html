@@ -42,7 +42,7 @@ footer{font-size:10px;color:#8795a9;padding:7px 12px;background:#090b10;border-t
 </head>
 <body>
 <header>
- <div class="top"><div><div class="brand">N<span>MOVIE</span></div><div class="sub">Kinolar suratga olingan joylar xaritasi</div></div><div class="count" id="count">6 FILM · 0 JOY</div></div>
+ <div class="top"><div><div class="brand">N<span>MOVIE</span></div><div class="sub">Kinolar suratga olingan joylar xaritasi</div></div><div class="count" id="count">11 FILM · 0 JOY</div></div>
  <div class="toolbar" id="filters">
   <button class="filter active" data-filter="all">Barchasi</button>
   <button class="filter" data-filter="extraction">Qutqaruv operatsiyasi</button>
@@ -87,6 +87,29 @@ const films=[
 {name:"Arc de Triomphe, Parij",country:"Fransiya",coords:[48.8738,2.2950],scene:"Parij ko‘chalari va Triumf arkasi atrofidagi avtomobil quvlashuviga oid sahnalar.",locImg:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=700",sceneImg:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=700",region:"europe"},
 {name:"Wadi Rum, Iordaniya",country:"Iordaniya",coords:[29.5321,35.4200],scene:"Filmning boshidagi sahrodagi ot quvlashuvi Wadi Rum hududida suratga olingan.",locImg:"https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=700",sceneImg:"https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=700",region:"asia"}
 ]}
+,
+{id:"skyfall",group:"europe",title:"007: Skyfall operatsiyasi",original:"Skyfall",year:2012,poster:"https://image.tmdb.org/t/p/w500/izrHg2UzxG3YXTBcKFaUbYp9LWA.jpg",postUrl:"https://t.me/",places:[
+{name:"Glencoe, Shotlandiya",country:"Buyuk Britaniya",coords:[56.682,-5.102],scene:"Skyfall uyiga olib boruvchi tog‘li manzaralar va avtomobil bilan kelish sahnalari shu hududda suratga olingan. Aniq kadr joyi alohida tekshirilishi kerak.",locImg:"",sceneImg:"",region:"europe"},
+{name:"Varda ko‘prigi, Adana",country:"Turkiya",coords:[37.235,35.112],scene:"Bond poyezd ustida jang qiladigan mashhur sahna shu ko‘prikda suratga olingan.",locImg:"",sceneImg:"",region:"europe"}
+]},
+{id:"gladiator",group:"europe",title:"Gladiator",original:"Gladiator",year:2000,poster:"https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",postUrl:"https://t.me/",places:[
+{name:"Bourne Wood, Farnham",country:"Buyuk Britaniya",coords:[51.190,-0.765],scene:"Film boshidagi Germania o‘rmonidagi katta jang sahnalari shu hududda suratga olingan.",locImg:"",sceneImg:"",region:"europe"},
+{name:"Fort Ricasoli, Malta",country:"Malta",coords:[35.890,14.530],scene:"Rim arenasi uchun Kolizeyning qisman dekoratsiyasi qurilgan; gladiator janglari shu suratga olish majmuasida ishlangan.",locImg:"",sceneImg:"",region:"europe"},
+{name:"Val d’Orcia, Toskana",country:"Italiya",coords:[43.067,11.550],scene:"Maksimusning oilaviy uyi va bug‘doyzor manzaralariga oid sahnalar shu hududda suratga olingan.",locImg:"",sceneImg:"",region:"europe"},
+{name:"Aït Ben Haddou",country:"Marokash",coords:[31.047,-7.131],scene:"Zucchabar shahri va gladiatorlik hayotiga oid tashqi sahnalar uchun ishlatilgan.",locImg:"",sceneImg:"",region:"africa"}
+]},
+{id:"lotr1",group:"europe",title:"Uzuklar hukmdori: Uzuk birodarligi",original:"The Lord of the Rings: The Fellowship of the Ring",year:2001,poster:"https://image.tmdb.org/t/p/w500/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",postUrl:"https://t.me/",places:[
+{name:"Kaitoke Regional Park",country:"Yangi Zelandiya",coords:[-41.070,175.170],scene:"Rivendell — Frodo jarohatidan keyin sog‘ayadigan elflar maskani sahnalari shu parkda suratga olingan.",locImg:"",sceneImg:"",region:"asia"},
+{name:"Mount Victoria, Vellington",country:"Yangi Zelandiya",coords:[-41.294,174.790],scene:"Hobbitlar qora chavandozlardan yashiringan o‘rmon sahnalari shu hududda suratga olingan.",locImg:"",sceneImg:"",region:"asia"}
+]},
+{id:"hp1",group:"europe",title:"Garri Potter va Falsafa toshi",original:"Harry Potter and the Philosopher’s Stone",year:2001,poster:"https://image.tmdb.org/t/p/w500/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg",postUrl:"https://t.me/",places:[
+{name:"Alnwick Castle",country:"Buyuk Britaniya",coords:[55.415,-1.706],scene:"Garri birinchi marta supurgida uchishni o‘rgangan dars hovlisi shu qasrda suratga olingan.",locImg:"",sceneImg:"",region:"europe"},
+{name:"Gloucester Cathedral",country:"Buyuk Britaniya",coords:[51.867,-2.246],scene:"Xogvartsning ayrim koridorlari va maktab ichki yo‘laklari sifatida ishlatilgan.",locImg:"",sceneImg:"",region:"europe"}
+]},
+{id:"gbh",group:"europe",title:"Grand Budapest mehmonxonasi",original:"The Grand Budapest Hotel",year:2014,poster:"https://image.tmdb.org/t/p/w500/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",postUrl:"https://t.me/",places:[
+{name:"Görlitzer Warenhaus, Görlitz",country:"Germaniya",coords:[51.154,14.989],scene:"Sobiq universal do‘konning markaziy atriumi mehmonxona lobbisi dekoratsiyasi sifatida ishlatilgan. Mehmonxonaning tashqi ko‘rinishi esa miniatyura maketi bo‘lgan.",locImg:"",sceneImg:"",region:"europe"}
+]}
+
 ];
 const map=L.map('map',{worldCopyJump:true}).setView([27,25],2);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
@@ -107,7 +130,7 @@ function render(){
 function showLocation(group){
  const first=group[0];
  side.innerHTML=`<div class="sidehead"><h2>${first.name}</h2><span class="hint">${group.length} ta film</span></div>`+
- group.map(x=>`<article class="card"><div class="hero"><img class="poster" src="${x.film.poster}" alt="${x.film.title} posteri" onerror="this.style.visibility='hidden'"><div><h3>${x.film.title}</h3><div class="meta">${x.film.original} · ${x.film.year}</div><span class="tag">📍 ${x.country}</span></div></div><div class="location"><strong>🎥 Suratga olingan sahna</strong><p>${x.scene}</p></div><div class="photos"><div class="photo-wrap"><img class="photo" src="${x.locImg}" alt="${x.name} lokatsiyasi" loading="lazy"><span class="photo-label">Haqiqiy lokatsiya</span></div><div class="photo-wrap"><img class="photo" src="${x.sceneImg}" alt="Sahna kayfiyati" loading="lazy"><span class="photo-label">Sahna vizuali</span></div></div><div class="actions"><a class="btn" href="${x.film.postUrl}" target="_blank" rel="noopener">Kanalda ko‘rish ↗</a><a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=${x.coords[0]},${x.coords[1]}" target="_blank" rel="noopener">Xaritada ↗</a></div></article>`).join('');
+ group.map(x=>`<article class="card"><div class="hero"><img class="poster" src="${x.film.poster}" alt="${x.film.title} posteri" onerror="this.style.visibility='hidden'"><div><h3>${x.film.title}</h3><div class="meta">${x.film.original} · ${x.film.year}</div><span class="tag">📍 ${x.country}</span></div></div><div class="location"><strong>🎥 Suratga olingan sahna</strong><p>${x.scene}</p></div><div class="photos"><div class="photo-wrap">${x.locImg?`<img class="photo" src="${x.locImg}" alt="${x.name} lokatsiyasi" loading="lazy">`:`<div class="photo" style="display:grid;place-items:center;color:#9ba9bd">Rasm tekshirilmoqda</div>`}<span class="photo-label">Haqiqiy lokatsiya</span></div><div class="photo-wrap">${x.sceneImg?`<img class="photo" src="${x.sceneImg}" alt="Film sahnasi" loading="lazy">`:`<div class="photo" style="display:grid;place-items:center;color:#9ba9bd">Kadr qo‘shiladi</div>`}<span class="photo-label">Film sahnasi</span></div></div><div class="actions"><a class="btn" href="${x.film.postUrl}" target="_blank" rel="noopener">Kanalda ko‘rish ↗</a><a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=${x.coords[0]},${x.coords[1]}" target="_blank" rel="noopener">Xaritada ↗</a></div></article>`).join('');
 }
 document.getElementById('filters').addEventListener('click',e=>{const b=e.target.closest('button[data-filter]');if(!b)return;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));activeFilter=b.dataset.filter;render();});
 render();
